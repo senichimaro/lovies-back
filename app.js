@@ -8,7 +8,7 @@ app.use( bodyParser.urlencoded({extended:false}) )
 app.use( bodyParser.json() )
 
 const options = cors.CorsOptions = {
-    origin:['http://localhost:3000']
+    origin:['http://localhost:3000', 'https://senichimaro.github.io/lovies/']
 }
 app.use( cors( options ) )
 
