@@ -3,11 +3,10 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const endpoint = require('./routes/routes')
 const app = express()
-// const options = cors.CorsOptions = {
-//     origin:['*','https://senichimaro.github.io/lovies/', 'https://senichimaro.github.io/*', 'https://github.io/*']
-// }
-// app.use( cors( options ) )
-app.use( cors() )
+const options = cors.CorsOptions = {
+    origin:['http://localhost:3000']
+}
+app.use( cors( options ) )
 
 app.use( bodyParser.urlencoded({extended:false}) )
 app.use( bodyParser.json() )
