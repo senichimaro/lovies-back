@@ -3,6 +3,7 @@ const axios = require('axios')
 const UserModel = require('../db/mongodb/mongodbSchema')
 
 function resJson(res,err,data){
+  res.header("Access-Control-Allow-Origin", '*');
     if(err) res.json({"success":false,"data":err})
     else if(!data) res.json({"success":false,"data":{"message":"Data Not Found"}})
     else res.json({"success":true,data})
@@ -27,7 +28,7 @@ async function addFavorites(req, res){
     try {
         const { email, movie_id, coll } = req.body
         const response = await UserModel.find({email}).exec()
-        
+
         const find_movie = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
         let movie_res = await axios(find_movie)
         let movie_data = {
@@ -39,7 +40,7 @@ async function addFavorites(req, res){
             poster_path: movie_res.data.poster_path,
         }
         movie_res = JSON.stringify( movie_data )
-        
+
         if ( (response.length) ){
             let rem_movie = null
             if ( coll ) rem_movie = await UserModel.find({email:email, favorites:movie_res}).exec()
